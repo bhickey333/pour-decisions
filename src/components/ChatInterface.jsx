@@ -21,14 +21,18 @@ export default function ChatInterface() {
   const [loading, setLoading] = useState(false)
   const [activeTab, setActiveTab] = useState('chat') // 'chat' | 'cabinet'
   const bottomRef = useRef(null)
+  const lastAssistantRef = useRef(null)
   const inputRef = useRef(null)
 
   const { profile, markTried, addWantToTry, removeWantToTry, getTriedEntry, isWantToTry } =
     useUserProfile()
 
-  // Scroll to bottom on new messages
   useEffect(() => {
-    if (activeTab === 'chat') {
+    if (activeTab !== 'chat') return
+    const lastMsg = messages[messages.length - 1]
+    if (lastMsg?.role === 'assistant' && messages.length > 1) {
+      lastAssistantRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    } else {
       bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
   }, [messages, activeTab])
@@ -143,7 +147,11 @@ export default function ChatInterface() {
           {/* Message list */}
           <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
             {messages.map((msg, idx) => (
-              <div key={idx} className="space-y-3">
+              <div
+                key={idx}
+                ref={idx === messages.length - 1 && msg.role === 'assistant' ? lastAssistantRef : null}
+                className="space-y-3"
+              >
                 <MessageBubble message={msg} />
                 {/* Recommendation cards */}
                 {msg.recommendations?.length > 0 && (

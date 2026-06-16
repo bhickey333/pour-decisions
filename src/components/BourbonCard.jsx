@@ -20,9 +20,15 @@ const AVAILABILITY_LABEL = {
 
 export default function BourbonCard({ bourbon, rec, triedEntry, isWantToTry, onMarkTried, onAddWantToTry }) {
   const [showTriedForm, setShowTriedForm] = useState(false)
-  const [rating, setRating] = useState(triedEntry?.rating ?? 0)
-  const [notes, setNotes] = useState(triedEntry?.notes ?? '')
+  const [rating, setRating] = useState(0)
+  const [notes, setNotes] = useState('')
   const [hoverRating, setHoverRating] = useState(0)
+
+  function openTriedForm() {
+    setRating(triedEntry?.rating ?? 0)
+    setNotes(triedEntry?.notes ?? '')
+    setShowTriedForm(true)
+  }
 
   function submitTried() {
     if (!rating) return
@@ -47,7 +53,7 @@ export default function BourbonCard({ bourbon, rec, triedEntry, isWantToTry, onM
         </div>
         <div className="shrink-0 text-right">
           <span className="font-mono text-sm font-medium text-bourbon-text">{bourbon.proof}°</span>
-          <p className="text-xs text-bourbon-muted">{PRICE_TIER_LABEL[bourbon.price_tier]}</p>
+          <p className="font-mono text-xs text-bourbon-muted tracking-widest">PROOF</p>
         </div>
       </div>
 
@@ -104,7 +110,7 @@ export default function BourbonCard({ bourbon, rec, triedEntry, isWantToTry, onM
       {!showTriedForm ? (
         <div className="flex gap-2 px-4 pb-4">
           <button
-            onClick={() => setShowTriedForm(true)}
+            onClick={openTriedForm}
             className="flex-1 rounded-lg bg-amber-primary text-white text-sm font-medium py-2 min-h-[44px] hover:bg-amber-light transition-colors"
           >
             {triedEntry ? 'Update Rating' : 'Mark as Tried'}
