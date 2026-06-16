@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm -v)",
+      "Bash(npm create *)",
+      "Bash(cp *)",
+      "Bash(npm install *)",
+      "Bash(npx tailwindcss *)",
+      "Bash(npm run *)",
+      "Bash(node -e ' *)",
+      "Bash(python3 *)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(kill %1)",
+      "Bash(npm i *)",
+      "Bash(vercel *)"
+    ]
+  }
+}
