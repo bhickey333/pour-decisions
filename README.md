@@ -12,7 +12,7 @@ A conversational AI recommendation agent powered by Claude, built as a Progressi
 
 Pour Decisions is a bourbon recommendation chatbot with a persona: **Higgins**, a dry-witted, encyclopedic bourbon butler modeled after Alfred Pennyworth — serious, quietly funny, never snobby. He knows every bottle in the database, remembers what you've tried, and reasons across your flavor preferences to return ranked, explained recommendations.
 
-This is not a search interface with filters. It is a multi-turn conversational agent with structured context injection, a curated knowledge base, and stateful user preferences — all operating within a strict domain scope (Kentucky bourbon only).
+This is not a search interface with filters. It is a multi-turn conversational agent with structured context injection, a curated knowledge base, and stateful user preferences — all operating within a strict domain scope (Kentucky Bourbon only).
 
 ---
 
