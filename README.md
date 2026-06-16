@@ -1,6 +1,6 @@
 # Pour Decisions
 
-**Your Kentucky bourbon butler.**
+**Your Kentucky Bourbon Butler.**
 
 A conversational AI recommendation agent powered by Claude, built as a Progressive Web App. Ask it anything about Kentucky bourbon — Higgins handles the rest.
 
