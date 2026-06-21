@@ -70,12 +70,23 @@ export default function ChatInterface() {
       // Parse Higgins's JSON response
       let parsed = { message: '', recommendations: [] }
       try {
-        // Strip markdown code fences if present
-        const clean = data.text.replace(/^```json\s*/i, '').replace(/```\s*$/, '').trim()
-        parsed = JSON.parse(clean)
+        let jsonText = data.text.trim()
+        // Strip code fences (```json, ```, or none) — trim first so ^ anchors correctly
+        const fenceMatch = jsonText.match(/^```(?:json)?\s*\n?([\s\S]*?)\n?```\s*$/i)
+        if (fenceMatch) jsonText = fenceMatch[1].trim()
+        parsed = JSON.parse(jsonText)
       } catch {
-        // If JSON parse fails, treat entire response as a plain message
-        parsed = { message: data.text, recommendations: [] }
+        // Fallback: extract the first {...} block from mixed-content responses
+        const objectMatch = data.text.match(/\{[\s\S]*\}/)
+        if (objectMatch) {
+          try {
+            parsed = JSON.parse(objectMatch[0])
+          } catch {
+            parsed = { message: data.text, recommendations: [] }
+          }
+        } else {
+          parsed = { message: data.text, recommendations: [] }
+        }
       }
 
       const assistantMessage = {
